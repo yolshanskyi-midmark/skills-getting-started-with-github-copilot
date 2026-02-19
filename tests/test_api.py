@@ -3,6 +3,7 @@ Tests for the Mergington High School Activities API
 """
 
 import pytest
+from urllib.parse import quote
 from fastapi.testclient import TestClient
 from src.app import app, activities
 
@@ -250,7 +251,7 @@ class TestIntegrationScenarios:
         
         # Sign up
         signup_response = client.post(
-            f"/activities/{activity}/signup?email={email}"
+            f"/activities/{quote(activity)}/signup?email={email}"
         )
         assert signup_response.status_code == 200
         
@@ -261,7 +262,7 @@ class TestIntegrationScenarios:
         
         # Unregister
         unregister_response = client.delete(
-            f"/activities/{activity}/unregister?email={email}"
+            f"/activities/{quote(activity)}/unregister?email={email}"
         )
         assert unregister_response.status_code == 200
         
